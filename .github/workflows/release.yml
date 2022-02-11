@@ -1,0 +1,68 @@
+name: Release Workflow 
+on:
+  release:
+    types:
+      - published
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js v17.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 17.x
+
+      - name: Retrieve Yarn cache directory
+        id: cache-dir
+        run: |
+          echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache Yarn dependencies
+        id: yarn-cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Cache node_modules
+        id: nm-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-17.x-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-17.x-nodemodules-
+
+      - name: Install dependencies if needed
+        if: |
+          steps.yarn-cache.outputs.cache-hit != 'true' ||
+          steps.nm-cache.outputs.cache-hit != 'true'
+        run: yarn
+
+      - name: Build the project to see if it compiles
+        run: yarn build:ci
+
+      - name: Lint project for any linting errors
+        run: yarn lint:ci
+
+      - name: Build project
+        run: yarn export
+        env:
+          SHOULD_MINIFY: 'true'
+
+      - name: Publish to Cloudflare!
+        run: |
+          mkdir -p ~/.wrangler/config
+          echo "${{ secrets.WRANGLER_CONF }}" > ./wrangler.toml
+          echo "api_token=\"${CF_API_TOKEN}\"" > ~/.wrangler/config/default.toml
+          yarn wrangler publish --env production
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}

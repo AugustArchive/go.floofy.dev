@@ -10,6 +10,7 @@
   "scripts": {
     "build:ci": "tsc --noEmit",
     "lint:ci": "eslint src --ext .ts",
+    "export": "node scripts/build.js",
     "build": "yarn lint && yarn fmt && node scripts/build.js",
     "lint": "eslint src --ext .ts --fix",
     "dev": "miniflare --live-reload --debug -w --kv LIBRARY_PATHS",

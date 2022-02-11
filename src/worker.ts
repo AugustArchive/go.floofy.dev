@@ -40,19 +40,24 @@ class Worker {
     );
 
     this.app.get('/:name', async (ctx) => {
-      if (!this.addedData) {
-        await this._addTestingData();
-      }
+      // remove this comment if to add miniflare kv persistence
+      // if (!this.addedData) {
+      //   await this._addTestingData();
+      // }
 
       // Check if we find the project name from it
       const githubUri = await LIBRARY_PATHS.get(ctx.req.param('name'));
-      if (githubUri === null)
-        return ctx.json({
-          success: false,
-          message: `project name ${ctx.req.param('name')} was not found!`,
-        });
+      if (githubUri === null) {
+        return ctx.json(
+          {
+            success: false,
+            message: `project name ${ctx.req.param('name')} was not found!`,
+          },
+          404
+        );
+      }
 
-      return ctx.redirect(githubUri, 302);
+      return ctx.redirect(githubUri);
     });
   }
 
