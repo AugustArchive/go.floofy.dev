@@ -12,3 +12,6 @@ command = "npm i && npm run build"
 
 [build.upload]
 format = "service-worker"
+
+[miniflare]
+kv_persist = true

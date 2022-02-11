@@ -18,10 +18,11 @@
 import { logger } from 'hono/logger';
 import { Hono } from 'hono';
 
-declare const LIBRARY_PATHS: WorkerGlobalScope;
+declare const LIBRARY_PATHS: KVNamespace<string>;
 
 class Worker {
   private readonly app: Hono;
+  private addedData: boolean = false;
 
   constructor() {
     this.app = new Hono();
@@ -37,11 +38,31 @@ class Worker {
         message: 'hello world',
       })
     );
+
+    this.app.get('/:name', async (ctx) => {
+      if (!this.addedData) {
+        await this._addTestingData();
+      }
+
+      // Check if we find the project name from it
+      const githubUri = await LIBRARY_PATHS.get(ctx.req.param('name'));
+      if (githubUri === null)
+        return ctx.json({
+          success: false,
+          message: `project name ${ctx.req.param('name')} was not found!`,
+        });
+
+      return ctx.redirect(githubUri, 302);
+    });
   }
 
   start() {
     console.log('cf worker has started! :D');
     this.app.fire();
+  }
+
+  private async _addTestingData() {
+    await LIBRARY_PATHS.put('osaka', 'https://github.com/auguwu/osaka');
   }
 }
 

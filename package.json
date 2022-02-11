@@ -12,7 +12,7 @@
     "lint:ci": "eslint src --ext .ts",
     "build": "yarn lint && yarn fmt && node scripts/build.js",
     "lint": "eslint src --ext .ts --fix",
-    "dev": "miniflare --live-reload --debug -w",
+    "dev": "miniflare --live-reload --debug -w --kv LIBRARY_PATHS",
     "fmt": "prettier --write . --config ./.prettierrc.json"
   },
   "dependencies": {
