@@ -1,0 +1,37 @@
+{
+  "name": "@noel/go.floofy.dev",
+  "description": "🎏 Dead simple Cloudflare Worker to redirect Go-related packages to GitHub",
+  "version": "1.0.0",
+  "author": "Noel <cutie@floofy.dev>",
+  "main": "build/worker.js",
+  "homepage": "https://go.floofy.dev",
+  "repository": "https://github.com/auguwu/go.floofy.dev",
+  "bugs": "https://github.com/auguwu/go.floofy.dev/issues",
+  "scripts": {
+    "build:ci": "tsc --noEmit",
+    "lint:ci": "eslint src --ext .ts",
+    "build": "yarn lint && yarn fmt && node scripts/build.js",
+    "lint": "eslint src --ext .ts --fix",
+    "dev": "miniflare --live-reload --debug -w",
+    "fmt": "prettier --write . --config ./.prettierrc.json"
+  },
+  "dependencies": {
+    "hono": "0.3.7"
+  },
+  "devDependencies": {
+    "@augu/eslint-config": "2.2.0",
+    "@augu/tsconfig": "1.1.1",
+    "@cloudflare/workers-types": "3.3.1",
+    "@cloudflare/wrangler": "1.19.8",
+    "@types/node": "17.0.17",
+    "@typescript-eslint/eslint-plugin": "5.11.0",
+    "@typescript-eslint/parser": "5.11.0",
+    "esbuild": "0.14.21",
+    "eslint": "8.8.0",
+    "eslint-config-prettier": "8.3.0",
+    "miniflare": "2.3.0",
+    "prettier": "2.5.1",
+    "tslog": "3.3.2",
+    "typescript": "4.5.5"
+  }
+}

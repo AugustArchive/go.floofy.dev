@@ -1,0 +1,14 @@
+name = "go.floofy.dev"
+type = "javascript"
+worker_devs = true
+compatibility_date = "2021-10-31"
+
+kv_namespaces = [
+  { binding = "LIBRARY_PATHS", preview_id = "", id = "" }
+]
+
+[build]
+command = "npm i && npm run build"
+
+[build.upload]
+format = "service-worker"
