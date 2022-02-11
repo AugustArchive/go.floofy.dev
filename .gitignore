@@ -645,3 +645,4 @@ FodyWeavers.xsd
 
 # cloudflare bULLSHIT
 wrangler.toml
+build
