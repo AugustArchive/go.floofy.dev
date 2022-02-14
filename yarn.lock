@@ -933,10 +933,10 @@ has-flag@^4.0.0:
   resolved "https://registry.npmjs.org/has-flag/-/has-flag-4.0.0.tgz"
   integrity sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
 
-hono@0.3.7:
-  version "0.3.7"
-  resolved "https://registry.npmjs.org/hono/-/hono-0.3.7.tgz"
-  integrity sha512-hfebTPUYKlZPCfPs9tRSKHBN/8JH7L8Z6PR1sRMCHRB3O7E/nZs4uhvwMbKOPMufKfEGKOUrqHJi1LVGQCaiKA==
+hono@0.3.8:
+  version "0.3.8"
+  resolved "https://registry.npmjs.org/hono/-/hono-0.3.8.tgz"
+  integrity sha512-wMq5tRr/YrhD7nBie+jR8VA5jREKhcC8SqjEfr2FVcEjPTEKs1RsObkQgs7Y62gjmnDKVjVxvFeiRb4f32mfjA==
 
 html-rewriter-wasm@^0.4.1:
   version "0.4.1"
@@ -1063,7 +1063,7 @@ micromatch@^4.0.4:
 
 miniflare@2.3.0:
   version "2.3.0"
-  resolved "https://registry.yarnpkg.com/miniflare/-/miniflare-2.3.0.tgz#ab2308c58d80337c384f2d2ffa1312f98615fea5"
+  resolved "https://registry.npmjs.org/miniflare/-/miniflare-2.3.0.tgz"
   integrity sha512-0lK4Df+jfqLDSDDgj4AOJffb1G6sN7XvB5QGUaquEakW+qPdurydyNhFKcFKBgpk4ozN6WTmB2x802iPXQcJJQ==
   dependencies:
     "@miniflare/cache" "2.3.0"
