@@ -933,10 +933,10 @@ has-flag@^4.0.0:
   resolved "https://registry.npmjs.org/has-flag/-/has-flag-4.0.0.tgz"
   integrity sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
 
-hono@0.4.2:
-  version "0.4.2"
-  resolved "https://registry.npmjs.org/hono/-/hono-0.4.2.tgz"
-  integrity sha512-ruMSrfSscQUNp83vsg5xxvMAV1bOKAAjORabqS5SM6sPhPk5aNVhAsDIJRU2+oiDEhhmU64G13j7eWbxgmJhWg==
+hono@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.npmjs.org/hono/-/hono-0.5.0.tgz"
+  integrity sha512-4cFLYj+7pkLksU4Z08K2Nu2otN6FXNCj8vlunbOGU2e+y3DmNb97bttdpgMla9+89PvwsJylMp9OKYAXbPE8gg==
 
 html-rewriter-wasm@^0.4.1:
   version "0.4.1"
