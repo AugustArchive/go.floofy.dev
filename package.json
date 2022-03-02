@@ -29,7 +29,7 @@
     "@typescript-eslint/parser": "5.13.0",
     "esbuild": "0.14.23",
     "eslint": "8.10.0",
-    "eslint-config-prettier": "8.4.0",
+    "eslint-config-prettier": "8.5.0",
     "miniflare": "2.3.0",
     "prettier": "2.5.1",
     "tslog": "3.3.2",
