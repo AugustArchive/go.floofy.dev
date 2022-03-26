@@ -20,56 +20,77 @@ import { Hono } from 'hono';
 
 declare const LIBRARY_PATHS: KVNamespace<string>;
 
-class Worker {
-  private readonly app: Hono;
-  private addedData: boolean = false;
+const owo = async () => {
+  await LIBRARY_PATHS.put('redis', 'https://github.com/go-redis/redis', {
+    metadata: {
+      redirects: 0
+    }
+  });
+};
 
-  constructor() {
-    this.app = new Hono();
+const app = new Hono();
+app.use('*', logger());
+app.use('*', async (ctx, next) => {
+  try {
+    await next();
+    ctx.res.headers.append('x-powered-by', 'Noel/go-redirect (https://github.com/auguwu/go.floofy.dev)');
+  } catch (e) {
+    console.error(e);
 
-    this.app.use('*', logger());
-    this._addRoutes();
+    ctx.json(
+      {
+        success: false,
+        message: 'Unknown exception has occured while running.'
+      },
+      500
+    );
   }
+});
 
-  private _addRoutes() {
-    console.log('[info] adding routes...');
-    this.app.get('/', (ctx) =>
-      ctx.json({
-        message: 'hello world',
-      })
+app.get('/', (ctx) =>
+  ctx.json({
+    success: true,
+    message: 'hello world!'
+  })
+);
+
+app.get('/:name', async (ctx) => {
+  // enable if you need mock data
+  // await owo();
+
+  const name = ctx.req.param('name');
+  const redirectUrl = await LIBRARY_PATHS.get(name);
+
+  if (!redirectUrl)
+    return ctx.json(
+      {
+        success: false,
+        message: `Unable to retrieve redirection URL for ${name}.`
+      },
+      404
     );
 
-    this.app.get('/:name', async (ctx) => {
-      // remove this comment if to add miniflare kv persistence
-      // if (!this.addedData) {
-      //   await this._addTestingData();
-      // }
+  return ctx.redirect(redirectUrl, 308);
+});
 
-      // Check if we find the project name from it
-      const githubUri = await LIBRARY_PATHS.get(ctx.req.param('name'));
-      if (githubUri === null) {
-        return ctx.json(
-          {
-            success: false,
-            message: `project name ${ctx.req.param('name')} was not found!`,
-          },
-          404
-        );
-      }
+app.get('/:name/:version{[v]?[0-9]+}', async (ctx) => {
+  // enable if you need mock data
+  // await owo();
 
-      return ctx.redirect(githubUri);
-    });
-  }
+  const name = ctx.req.param('name');
+  const version = ctx.req.param('version');
 
-  start() {
-    console.log('cf worker has started! :D');
-    this.app.fire();
-  }
+  const redirectUrl = await LIBRARY_PATHS.get(name);
+  if (!redirectUrl)
+    return ctx.json(
+      {
+        success: false,
+        message: `Unable to retrieve redirection URL for ${name}.`
+      },
+      404
+    );
 
-  private async _addTestingData() {
-    await LIBRARY_PATHS.put('osaka', 'https://github.com/auguwu/osaka');
-  }
-}
+  return ctx.redirect(`${redirectUrl}/${version}`);
+});
 
-const worker = new Worker();
-worker.start();
+app.fire();

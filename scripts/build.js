@@ -30,7 +30,7 @@ const main = async () => {
     bundle: true,
     entryPoints: [join(process.cwd(), 'src', 'worker.ts')],
     outfile: join(process.cwd(), 'build', 'worker.js'),
-    tsconfig: join(process.cwd(), 'tsconfig.json'),
+    tsconfig: join(process.cwd(), 'tsconfig.json')
   };
 
   if (process.env.SHOULD_MINIFY === 'true') options.minify = true;

@@ -1,7 +1,7 @@
 {
   "name": "@noel/go.floofy.dev",
   "description": "🎏 Dead simple Cloudflare Worker to redirect Go-related packages to GitHub",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Noel <cutie@floofy.dev>",
   "main": "build/worker.js",
   "homepage": "https://go.floofy.dev",
