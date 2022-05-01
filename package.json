@@ -17,7 +17,7 @@
     "fmt": "prettier --write . --config ./.prettierrc.json"
   },
   "dependencies": {
-    "hono": "1.1.0"
+    "hono": "1.1.1"
   },
   "devDependencies": {
     "@augu/eslint-config": "2.2.0",
